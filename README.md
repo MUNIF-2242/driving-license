@@ -53,5 +53,5 @@ Send a POST request with the following JSON body:
 
 ```json
 {
-  "fileName": "your-document.pdf"
+  "fileName": "your-document.jpg"
 }
