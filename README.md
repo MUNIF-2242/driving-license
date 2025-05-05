@@ -1,31 +1,57 @@
-# 🧾 License Text Extraction API using AWS Textract
+# Driving License Data Extractor
 
-This project is an AWS Lambda function that uses **AWS Textract** to extract specific fields from a driving license image stored in an **S3 bucket**. It identifies key details such as name, date of birth, blood group, license number, issue/expiration dates, and father's name from the document using optical character recognition (OCR).
+This AWS Lambda function utilizes Amazon Textract to extract key information from Bangladeshi driving license documents stored in Amazon S3. It identifies and retrieves fields such as:
 
----
-
-## 📦 Features
-
-- Extracts text from documents using AWS Textract
-- Parses key fields from driving licenses
-- Validates license issue and expiration dates
-- Designed for serverless deployment on AWS Lambda
-
----
-
-## 🛠 Setup Instructions
-
-### 1. Prerequisites
-
-- Node.js 16.x+
-- AWS account
-- IAM user with permissions for Textract and S3
-- An existing S3 bucket with uploaded license images
+- License Holder Name
+- Date of Birth
+- Blood Group
+- Father's Name
+- License Issue Date
+- License Expiration Date
+- License Number
+- License Validity Status
 
 ---
 
-### 2. Clone the Repository
+## 🧩 Features
 
-```bash
-git clone https://github.com/your-username/aws-textract-license-parser.git
-cd aws-textract-license-parser
+- Accepts a JSON payload with an S3 file name.
+- Utilizes Amazon Textract to extract text from the specified document.
+- Parses and identifies relevant fields from the extracted text.
+- Determines the validity of the license based on issue and expiration dates.
+- Returns a structured JSON response containing the extracted data and validity status.
+
+---
+
+## ⚙️ Prerequisites
+
+- Node.js 18.x or later
+- An AWS Account with:
+  - An S3 bucket containing driving license images or PDFs
+  - IAM permissions for Textract and S3
+- Lambda function configured with necessary environment variables
+
+---
+
+## 🔐 Environment Variables
+
+Set the following environment variables for your Lambda function:
+
+| Variable Name               | Description                 |
+|-----------------------------|-----------------------------|
+| `YOUR_AWS_ACCESS_KEY_ID`    | AWS access key              |
+| `YOUR_AWS_SECRET_ACCESS_KEY`| AWS secret access key       |
+| `YOUR_S3_BUCKET_NAME`       | Name of your S3 bucket      |
+
+*Note: These can be configured in Lambda environment variables or via a `.env` file for local development.*
+
+---
+
+## 📤 Request Payload Format
+
+Send a POST request with the following JSON body:
+
+```json
+{
+  "fileName": "your-document.pdf"
+}
